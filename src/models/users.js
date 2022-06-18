@@ -1,18 +1,35 @@
 'use strict';
+import { hashSync, genSaltSync, compareSync } from "bcrypt";
+//import { rounds } from "../config/auth";
+
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class users extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    
     static associate(models) {
+
       this.belongsTo(models.roles, {
-        foreignKey: "rol_id",
+        foreignKey: "role_id",
         targetKey: "id",
       });
+
+      this.hasOne(models.shopping_cart, {
+        //as:'models.shopping_cart',
+        foreignKey: "user_id",
+      });
+      
     }
+
+    async hashPassword() {
+      let passwordHash = hashSync(this.password, genSaltSync(rounds));
+      this.password = passwordHash;
+    }
+
+    async validatePassword(password) {
+      return compareSync(password, this.password);
+    }
+
   }
   users.init(
     {
@@ -21,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
-      rol_id: DataTypes.INTEGER,
+      role_id: DataTypes.INTEGER,
     }, 
     {
       sequelize,
