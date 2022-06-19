@@ -1,6 +1,5 @@
 'use strict';
 import { hashSync, genSaltSync, compareSync } from "bcrypt";
-//import { rounds } from "../config/auth";
 
 const { Model } = require('sequelize');
 
@@ -14,11 +13,14 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
       });
 
-      this.hasOne(models.shopping_cart, {
-        //as:'models.shopping_cart',
-        foreignKey: "user_id",
+      this.belongsToMany(models.products, {
+        through: 'shopping_cart',
+        foreignKey: 'user_id',
+        targetKey: "id",
+        otherKey: 'product_id',
+        targetKey: "id"
       });
-      
+
     }
 
     async hashPassword() {
