@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
                 targetKey: "id",
             });
 
-            this.belongsTo(models.shopping_cart, {
+            /*this.belongsTo(models.shopping_cart, {
                 foreignKey: "product_id",
                 targetKey: "id",
-            });
+            });*/
         }
     }
     products.init(

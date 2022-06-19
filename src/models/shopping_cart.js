@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
                 targetKey: "id",
             });
 
-            this.hasMany(models.products, {
+            /*this.hasMany(models.products, {
                 foreignKey: "product_id",
-            });
+            });*/
 
         }
     }
