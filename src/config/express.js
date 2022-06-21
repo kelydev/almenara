@@ -6,7 +6,7 @@ import usersRoutes from "../routes/users.routes";
 import authRoutes from "../routes/auth.routes";
 import categoriesRoutes from "../routes/categories.routes";
 import productsRoutes from "../routes/products.routes";
-import shoppingCartRoutes from '../models/shopping_cart';
+import shoppingCartRoutes from '../routes/shopping_cart.routes';
 const app = express();
 
 app.use(morgan(process.env.NODE_LOG || 'dev'));
