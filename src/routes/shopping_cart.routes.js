@@ -6,6 +6,7 @@ const shoppingCartcontroller = new ShoppingCartController();
 
 router.get("/", (req, res) => shoppingCartcontroller.getAll(req, res));
 router.post("/", (req, res) => shoppingCartcontroller.addProduct(req, res));
+router.put("/:id", (req, res) => shoppingCartcontroller.updateProduct(req, res));
 router.delete("/:id", (req, res) => shoppingCartcontroller.deleteProduct(req, res));
 
 export default router;

@@ -45,11 +45,31 @@ class ShoppingCartController {
         }
     }
 
+    async updateProduct (req, res) {
+        try {
+            const id = parseInt(req.params.id)
+            const update_product = await this.model.update(
+                {
+                    user_id:1,
+                    product_id:2,
+                    quantity: 100,
+                    price: 50.5
+                },
+                {where: { id: id }}
+            );
+            return res.status(200).json(update_product);
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message,
+            });        
+        }
+    }
+
     async deleteProduct (req, res) {
         try {
             const id = parseInt(req.params.id)
             const delete_product = await this.model.destroy({
-                where: { product_id: id }
+                where: { id: id }
             });
             return res.status(200).json(delete_product);
         } catch (error) {
@@ -58,6 +78,5 @@ class ShoppingCartController {
             });        
         }
     }
-
 }
 module.exports = ShoppingCartController;

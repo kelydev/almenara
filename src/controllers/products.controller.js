@@ -51,6 +51,51 @@ class ProductController {
                 message: error.message,
             });        
         }
-    } 
+    }
+
+    async getByName (req, res) {
+        try {
+            const { name } = req.body;
+            const productsName = await this.model.findAll({
+                where: { name: name },
+            });
+            return res.status(200).json(productsName);
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message,
+            });        
+        }
+    }
+
+    async getByPriceHigher (req, res) {
+        try {
+            const productHigher = await this.model.findAll({
+                order: [
+                    ['price', 'DESC'],
+                ],
+            });
+            return res.status(200).json(productHigher);
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message,
+            });        
+        }
+    }
+
+    async getByPriceLower (req, res) {
+        try {
+            const productLower = await this.model.findAll({
+                order: [
+                    ['price', 'ASC'],
+                ],
+            });
+            return res.status(200).json(productLower);
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message,
+            });        
+        }
+    }
+
 }
 module.exports = ProductController;
