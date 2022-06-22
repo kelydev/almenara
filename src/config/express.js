@@ -7,8 +7,9 @@ import authRoutes from "../routes/auth.routes";
 import categoriesRoutes from "../routes/categories.routes";
 import productsRoutes from "../routes/products.routes";
 import shoppingCartRoutes from '../routes/shopping_cart.routes';
+import storeSectionRoutes from '../routes/store_sections.routes';
 import storeRoutes from '../routes/store.routes';
-import couponsRoutes from '../routes/coupons.router';
+//import couponsRoutes from '../routes/coupons.router';
 
 const app = express();
 
@@ -24,6 +25,6 @@ app.use("/products", productsRoutes);
 app.use("/shoppingCart", shoppingCartRoutes);
 app.use("/storeSection", storeSectionRoutes);
 app.use("/store", storeRoutes);
-app.use("/coupons", couponsRoutes);
+//app.use("/coupons", couponsRoutes);
 
 export default app;

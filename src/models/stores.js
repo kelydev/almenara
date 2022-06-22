@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         phone: DataTypes.INTEGER,
         image: DataTypes.STRING,
         opening_hours: DataTypes.INTEGER,
-        status: DataTypes.BOOLEAN,
     },
     {
         sequelize,
