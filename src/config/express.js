@@ -7,6 +7,9 @@ import authRoutes from "../routes/auth.routes";
 import categoriesRoutes from "../routes/categories.routes";
 import productsRoutes from "../routes/products.routes";
 import shoppingCartRoutes from '../routes/shopping_cart.routes';
+import storeRoutes from '../routes/store.routes';
+import couponsRoutes from '../routes/coupons.router';
+
 const app = express();
 
 app.use(morgan(process.env.NODE_LOG || 'dev'));
@@ -19,5 +22,8 @@ app.use("/auth", authRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/products", productsRoutes);
 app.use("/shoppingCart", shoppingCartRoutes);
+app.use("/storeSection", storeSectionRoutes);
+app.use("/store", storeRoutes);
+app.use("/coupons", couponsRoutes);
 
 export default app;
