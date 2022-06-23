@@ -36,7 +36,7 @@ class ShoppingCartController {
                 product_id:id,
                 quantity: quantity,
                 price: price,
-              });
+            });
             return res.status(200).json(add_product);
         } catch (error) {
             return res.status(500).json({

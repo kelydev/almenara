@@ -4,7 +4,21 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class orders extends Model {
         static associate(models) {
-            //RELATIONS
+            
+            this.belongsTo(models.users, {
+                foreignKey: "user_id",
+                targetKey: "id",
+            });
+
+            this.belongsTo(models.coupons, {
+                foreignKey: "coupon_id",
+                targetKey: "id",
+            });
+
+            this.belongsTo(models.stores, {
+                foreignKey: "store_id",
+                targetKey: "id",
+            });
         }
     }
     orders.init(

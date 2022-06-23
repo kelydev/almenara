@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
                 targetKey: "id",
             });
 
+            this.hasOne(models.orders, {
+                foreignKey: "store_id",
+            });
+
         }
     }
     stores.init(

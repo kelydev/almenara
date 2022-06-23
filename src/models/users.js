@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.shopping_cart, {
         foreignKey: "user_id",
       });
+
+      this.hasMany(models.orders, {
+        foreignKey: "user_id",
+      });
+
     }
 
     async hashPassword() {

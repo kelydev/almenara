@@ -5,6 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     class coupons extends Model {
         static associate(models) {
 
+            this.hasOne(models.orders, {
+                foreignKey: "coupon_id",
+            });
         }
     }
     coupons.init(

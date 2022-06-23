@@ -10,6 +10,7 @@ import shoppingCartRoutes from '../routes/shopping_cart.routes';
 import storeSectionRoutes from '../routes/store_sections.routes';
 import storeRoutes from '../routes/store.routes';
 import couponsRoutes from '../routes/coupons.routes';
+import orderRoutes from '../routes/orders.routes';
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use("/shoppingCart", shoppingCartRoutes);
 app.use("/storeSection", storeSectionRoutes);
 app.use("/store", storeRoutes);
 app.use("/coupons", couponsRoutes);
+app.use("/order", orderRoutes);
 
 export default app;
