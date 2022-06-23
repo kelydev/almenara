@@ -16,5 +16,18 @@ class CouponsController {
         }
     }
 
+    async getSearch (req, res) {
+        try {
+            const { code } = req.body
+            const coupon = await this.model.findAll({
+                where : { code : code}
+            });
+            return res.status(200).json(coupon);
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message,
+            });
+        }
+    }
 }
 module.exports = CouponsController;
