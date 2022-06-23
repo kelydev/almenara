@@ -29,5 +29,24 @@ class CouponsController {
             });
         }
     }
+
+    async addCoupon (req, res) {
+        try {
+            const newCoupon = req.body
+            const couponSearch = await this.model.findAll({
+                where : { code : newCoupon.code}
+            });
+            if ( Object.keys(couponSearch).length == 0 ) {
+                const coupon = await this.model.create(newCoupon);
+                return res.status(200).json(coupon);
+            } else {
+                return res.status(200).json("Ya existe");
+            }
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message,
+            });
+        }
+    }
 }
 module.exports = CouponsController;
