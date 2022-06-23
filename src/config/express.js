@@ -11,6 +11,7 @@ import storeSectionRoutes from '../routes/store_sections.routes';
 import storeRoutes from '../routes/store.routes';
 import couponsRoutes from '../routes/coupons.routes';
 import orderRoutes from '../routes/orders.routes';
+import orderDetailRoutes from '../routes/order_detail.routes';
 
 const app = express();
 
@@ -28,5 +29,6 @@ app.use("/storeSection", storeSectionRoutes);
 app.use("/store", storeRoutes);
 app.use("/coupons", couponsRoutes);
 app.use("/order", orderRoutes);
+app.use("/orderDetail", orderDetailRoutes);
 
 export default app;
