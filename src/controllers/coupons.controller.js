@@ -48,5 +48,28 @@ class CouponsController {
             });
         }
     }
+    
+    async deleteCoupon (req, res) {
+        try {
+            const { code } = req.body
+            const couponSearch = await this.model.findAll({
+                where : { code : code }
+            });
+            if ( Object.keys(couponSearch).length == 0 ) {
+                return res.status(200).json("No existe");
+            } else {
+                const coupon = await this.model.destroy({
+                    where: {
+                        code : code
+                    }
+                });
+                return res.status(200).json("Cupon eliminado");
+            }
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message,
+            });
+        }
+    }
 }
 module.exports = CouponsController;
