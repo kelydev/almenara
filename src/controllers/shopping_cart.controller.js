@@ -30,12 +30,12 @@ class ShoppingCartController {
 
     async addProduct (req, res) {
         try {
-            let {id} = req.body;
+            let {id,quantity,price} = req.body;
             const add_product = await this.model.create({
                 user_id:1,
                 product_id:id,
-                quantity: 23,
-                price: 20.45,
+                quantity: quantity,
+                price: price,
               });
             return res.status(200).json(add_product);
         } catch (error) {
