@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     class shopping_cart extends Model {
     
         static associate(models) {
+            
             this.belongsTo(models.users, {
                 foreignKey: "user_id",
                 targetKey: "id",

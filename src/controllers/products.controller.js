@@ -15,12 +15,13 @@ class ProductController {
         } catch (error) {
             return res.status(500).json({
                 message: error.message,
-            });        
+            });      
         }
     }
 
     async getById (req, res) {
         try {
+            //query params id
             const id = parseInt(req.params.id)
             const product = await this.model.findByPk(id);
             if (!product) {
@@ -43,8 +44,7 @@ class ProductController {
         try {
             const prod = await this.model.findAll({
                 where: { category_id: category_ids }
-            }
-            );
+            });
             return res.status(200).json(prod);
         } catch (error) {
             return res.status(500).json({

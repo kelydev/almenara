@@ -4,14 +4,13 @@ class OrderController {
     constructor() {
         this.model = orders;
         this.modelo = shopping_cart;
-        this.userId = 1;
+        //this.user_id = req.current_user;
+        this.user_id = 1;
         this.igv = 0.18;
     }
 
     async getAll (req, res) {
         try {
-            //const {id} = 1
-            //const {id} = req.current_user;
             const order = await this.model.findAll();
             return res.status(200).json(order);
         } catch (error) {
@@ -55,7 +54,7 @@ class OrderController {
                 include: [{
                     model: products,
                 }],
-                where: {user_id: 2,}
+                where: {user_id: this.user_id,}
             });
 
             if(records)
@@ -69,7 +68,6 @@ class OrderController {
                 let subtotal = total - (total * this.igv)
                 let igv = total * this.igv
 
-        
                 return ({
                     items:records,
                     'total': total,
@@ -82,6 +80,16 @@ class OrderController {
             return res.status(500).json({
                 message: error.message,
             });        
+        }
+    }
+    
+    async cleanShoppingCart (req, res) {
+        try {
+            await this.modelo.delete({
+                where: {user_id: this.user_id}
+            });
+        } catch (error) {
+            return ({message: error.message,});        
         }
     }
 }

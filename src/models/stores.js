@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
             this.hasOne(models.orders, {
                 foreignKey: "store_id",
             });
-
         }
     }
     stores.init(
