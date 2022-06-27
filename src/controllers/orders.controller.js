@@ -26,7 +26,8 @@ class OrderController {
             //let {id, user_id, coupon_id, date_creation, date_delivery, subtotal_price, amount_igv, payment, operation_code, status} = req.body;
             let { user_id, coupon_id, store_id, date_creation, date_delivery} = req.body;
             const orderr = await this.model.create(
-                {   id:4,
+                {   
+                    id:4,
                     user_id:user_id,
                     store_id:store_id,
                     coupon_id:coupon_id,

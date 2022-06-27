@@ -11,6 +11,8 @@ class ProductController {
             const productss = await this.model.findAll({
                 include: categories,
             });
+            const cat = await this.uploadFile('logo.png');
+            console.log(cat);
             return res.status(200).json(productss);
         } catch (error) {
             return res.status(500).json({
