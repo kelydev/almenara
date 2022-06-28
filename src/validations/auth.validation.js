@@ -12,4 +12,5 @@ const authSignInSchema = [
     body("password").notEmpty().withMessage("Password is required"),
 ];
 
+
 export { authSignUpSchema, authSignInSchema };

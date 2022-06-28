@@ -4,8 +4,6 @@ class OrderController {
     constructor() {
         this.model = orders;
         this.modelo = shopping_cart;
-        //this.user_id = req.current_user;
-        this.user_id = 1;
         this.igv = 0.18;
     }
 
@@ -22,13 +20,14 @@ class OrderController {
 
     async createOrder (req, res) {
         try {
+            const {id} = req.current_user;
             const shopping = await this.getProductsToShoppingCart();
             //let {id, user_id, coupon_id, date_creation, date_delivery, subtotal_price, amount_igv, payment, operation_code, status} = req.body;
             let { user_id, coupon_id, store_id, date_creation, date_delivery} = req.body;
             const orderr = await this.model.create(
                 {   
                     id:4,
-                    user_id:user_id,
+                    user_id:id,
                     store_id:store_id,
                     coupon_id:coupon_id,
                     date_creation: date_creation,
@@ -51,11 +50,12 @@ class OrderController {
 
     async getProductsToShoppingCart (req, res) {
         try {
+            const {id} = req.current_user;
             const records = await this.modelo.findAll({
                 include: [{
                     model: products,
                 }],
-                where: {user_id: this.user_id,}
+                where: {user_id:id,}
             });
 
             if(records)
@@ -86,8 +86,9 @@ class OrderController {
     
     async cleanShoppingCart (req, res) {
         try {
+            const {id} = req.current_user;
             await this.modelo.delete({
-                where: {user_id: this.user_id}
+                where: {user_id: id}
             });
         } catch (error) {
             return ({message: error.message,});        

@@ -4,12 +4,11 @@ class ShoppingCartController {
     constructor() {
         this.model = shopping_cart;
         this.igv = 0.18;
-        //this.user_id = req.current_user;
-        this.user_id = 1;
     }
     
     async getShoppingCartCustomer (req, res) {
         try {
+            const {id} = req.current_user;
             console.log(req.current_user);
             const records = await this.model.findAll({
                 include: [{
@@ -19,7 +18,7 @@ class ShoppingCartController {
                     exclude:"user_id",
                 },
                 where: {
-                    user_id: this.user_id,
+                    user_id: id,
                 }
             });
     
@@ -61,27 +60,40 @@ class ShoppingCartController {
     async addProduct (req, res) {
         try {
             let data = req.body;
-           
-            const record = await this.model.findAll({
+            const {id} = req.current_user;
+
+            const product = await products.findByPk(data.product_id);
+
+            if (!product) {
+                if (!product) {
+                    return res.status().json({
+                        message: "Product not Found",
+                    })
+                }
+            }
+
+            const record = await this.model.findOne({
                 where: {
-                    user_id: this.user_id,
+                    user_id: id,
                     product_id: data.product_id,
                 }
             });
 
-            if(record.length != 0)
+            if(record)
             {
-                const update_product = await record[0].update(
-                {
-                    user_id:1,
-                     ...data
-                });
-                return res.status(200).json(update_product);
-            }else {
+                record.quantity = data.quantity;
+                record.price = product.price;
+                await record.save();
+                return res.status(200).json(record);
+            }
+            else 
+            {
                const add_product = await this.model.create(
                 {
-                    user_id: 1,
-                    ...data
+                    user_id: id,
+                    product_id: data.product_id,
+                    quantity: data.quantity,
+                    price: product.price
                 });
                 return res.status(200).json(add_product);
             }
@@ -94,20 +106,20 @@ class ShoppingCartController {
     
     async deleteProduct (req, res) {
         try {
-            const id = parseInt(req.params.id)
+            const {id} = req.current_user;
+            const product_id= parseInt(req.params.id)
             const record = await this.model.destroy({
                 where: {
-                    user_id: this.user_id,
-                    product_id: id,
+                    user_id: id,
+                    product_id: product_id,
                 }
             });
 
             if(record)
             {
-
-                return res.status(200).json({message:`Producto ${id} eliminado`});
+                return res.status(200).json({message:`Producto ${product_id} eliminado`});
             }
-            return res.status(400).json({message:"Producto no encontrado"});
+            return res.status(404).json({message:"Producto no encontrado"});
         } catch (error) {
             return res.status(500).json({
                 message: error.message,

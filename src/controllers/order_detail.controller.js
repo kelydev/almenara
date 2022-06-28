@@ -3,8 +3,6 @@ import { orders, products, order_detail} from '../models'
 class OrderDetailController {
     constructor() {
         this.model = order_detail;
-        //this.user_id = req.current_user;
-        this.user_id = 1;
     }
 
     async getAll (req, res) {

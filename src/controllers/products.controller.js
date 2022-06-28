@@ -25,13 +25,11 @@ class ProductController {
             const id = parseInt(req.params.id)
             const product = await this.model.findByPk(id);
             if (!product) {
-                throw boom.notFound('product not found');
-            }
-            if (product.isBlock) {
-                throw boom.conflict('product is block');
+                return res.status().json({
+                    message: "Product not Found",
+                })
             }
             return res.status(200).json(product);
-
         } catch (error) {
             return res.status(500).json({
                 message: error.message,
@@ -96,6 +94,5 @@ class ProductController {
             });        
         }
     }
-
 }
 module.exports = ProductController;
